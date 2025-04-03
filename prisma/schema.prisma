@@ -26,6 +26,7 @@ model User {
   name String @map("firstName")
   role Role? @default(USER)
   profile Profile? // user can have zero or one profile ? means optional
+  posts Post[]
 
   @@map("users")
 
@@ -44,6 +45,17 @@ model Profile {
   
 
   user User @relation(fields: [userId], references: [id])
+}
+
+model Post {
+  id Int @id @default(autoincrement())
+  authorId Int //multiple posts can have the same author id
+  title String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  published Boolean @default(false)
+  
+  author User @relation(fields: [authorId], references: [id])
 }
 
 
