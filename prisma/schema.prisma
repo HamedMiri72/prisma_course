@@ -12,3 +12,33 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+//introspection -> we crate table in adminer and then in terminal we say 
+// npx prisma db pull so we can create models based on the tables inside the database
+// so when we have a database in advance we will go for introspection
+
+
+//migration
+
+model User {
+  id Int @default(autoincrement())
+  email String @unique
+  name String @map("firstName")
+  role Role? @default(USER)
+
+  @@map("users")
+
+  @@id([email, name])
+
+  @@unique([name, role])
+
+  @@index([id, email])
+}
+//map attribute can set the name of a feild or a model inside our database
+//default attribute we can set a default value for a feild
+// if we add a ? after type means this feild can have a null value
+
+enum Role {
+  USER
+  ADMIN
+}
