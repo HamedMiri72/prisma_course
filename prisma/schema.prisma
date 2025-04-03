@@ -21,14 +21,13 @@ datasource db {
 //migration
 
 model User {
-  id Int @default(autoincrement())
+  id Int @id @default(autoincrement())
   email String @unique
   name String @map("firstName")
   role Role? @default(USER)
+  profile Profile? // user can have zero or one profile ? means optional
 
   @@map("users")
-
-  @@id([email, name])
 
   @@unique([name, role])
 
@@ -38,7 +37,38 @@ model User {
 //default attribute we can set a default value for a feild
 // if we add a ? after type means this feild can have a null value
 
+model Profile {
+  id Int @id @default(autoincrement())
+  bio String 
+  userId Int @unique
+  
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+
+
 enum Role {
   USER
   ADMIN
 }
+
+
+//multifeild primiry key we can have a multifeild relationship between them
+
+// model User {
+//   firstName String
+//   lastName String
+//   profile Profile?
+
+//   @@id([firstName, lastName])
+// }
+
+// model Profile {
+//   id Int @id
+//   userFirstName String
+//   userLastName String
+
+//   user User @relation(fields: [userFirstName, userLastName], references: [firstName, lastName])
+//   @@unique([userFirstName, userLastName])
+// }
