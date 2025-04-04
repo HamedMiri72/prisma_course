@@ -49,9 +49,19 @@ export const GET = async() => {
             },
 
         },
-        include: {
-            author: true,
+        // include: {
+        //     author: true,
+        // }
+        select: {
+            title: true,
+            author: {
+                select: {
+                    name: true,
+                    email: true,
+                }
+            }
         }
+        //we can not use select and include in the same level
     })
 
     return new Response(JSON.stringify(posts));
