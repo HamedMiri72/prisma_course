@@ -68,13 +68,13 @@ export const GET = async () => {
         //     }
         // }
 
-        where: {
-            posts: {
-                none: {
-                    published: true,
-                }
-            }
-        }
+        // where: {
+        //     posts: {
+        //         none: {
+        //             published: true,
+        //         }
+        //     }
+        // }
     })
 
     return new Response(JSON.stringify(users));
