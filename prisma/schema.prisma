@@ -55,6 +55,7 @@ model Post {
   updatedAt DateTime @updatedAt
   published Boolean @default(false)
   categories Category[]
+  likeNum Int @default(0)
   author User @relation(fields: [authorId], references: [id])
 }
 
